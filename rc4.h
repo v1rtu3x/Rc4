@@ -1,5 +1,5 @@
 /*rc4.h*/
-
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -14,7 +14,8 @@ typedef unsigned int int32;
 
 
 struct Arc4{
-	int x;
+	int16 i, j, k;
+	int8 s[256];
 };
 
 typedef struct Arc4 Arc4;

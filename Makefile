@@ -2,7 +2,7 @@
 all: rc4 example
 
 example: example.o
-	gcc example.o -o example -Wall -O2
+	gcc rc4.o example.o -o example -Wall -O2
 
 example.o: example.c
 	gcc -c -O2 -Wall example.c

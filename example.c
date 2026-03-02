@@ -22,7 +22,7 @@ void printbin(int8 *text, const int16 size){
 }
 
 int main(){
-	// Arc4 *rc;
+	Arc4 *rc;
 	int16 skey, stext;
 	char *key, *source, *encrypted, *decrypted;
 
@@ -34,11 +34,14 @@ int main(){
 	stext = strlen(source);
 
 	printf("Initializing Encryption"); F;
-	//rc = rc4init(key, skey);
+	rc = rc4init((int8*)key, skey);
 	printf("done\n");
 
 	printf("'%s'\n->", source);
 	//encrypted = rc4encrypt(source, stext);
 	printbin((int8*)key,(int16) skey);
+	printbin(rc->s, skey);
+
+	free(rc);
 
 }
