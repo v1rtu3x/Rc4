@@ -7,7 +7,9 @@
 #include <assert.h> 
 #include <errno.h>
 
-#define rc4decrypt(x,y) rc4encrypt(x,y)
+#define rc4decrypt(p, x, y) rc4encrypt(p,x,y)
+#define rc4uninit(x) free(x)
+#define export __attribute__((visibility("default")))
 typedef unsigned char int8;
 typedef unsigned short int int16;
 typedef unsigned int int32;
@@ -20,8 +22,8 @@ struct Arc4{
 
 typedef struct Arc4 Arc4;
 
-Arc4 * rc4init(int8*, int16);
-int8 rc4byte(void);
-int8 * rc4encrypt(int8*, int16);
+export Arc4 * rc4init(int8*, int16);
+int8 rc4byte(Arc4 *);
+export int8 * rc4encrypt(Arc4*, int8*, int16);
 
 

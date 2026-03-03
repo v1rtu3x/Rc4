@@ -24,7 +24,7 @@ void printbin(int8 *text, const int16 size){
 int main(){
 	Arc4 *rc;
 	int16 skey, stext;
-	char *key, *source, *encrypted, *decrypted;
+	int8 *key, *source, *encrypted, *decrypted;
 
 	key=source=encrypted=decrypted=0;
 	skey=stext=0;
@@ -34,14 +34,23 @@ int main(){
 	stext = strlen(source);
 
 	printf("Initializing Encryption"); F;
-	rc = rc4init((int8*)key, skey);
-	printf("done\n");
+	rc = rc4init((int8 *)key, skey);
+	printf("...done\n");
 
 	printf("'%s'\n->", source);
-	//encrypted = rc4encrypt(source, stext);
-	printbin((int8*)key,(int16) skey);
-	printbin(rc->s, skey);
+	encrypted = rc4encrypt(rc, source, stext);
+	printbin(encrypted, stext);
 
-	free(rc);
+	rc4uninit(rc);
 
+	printf("Initializing Decryption");
+	rc = rc4init((int8 *)key, skey);
+	printf("...done\n");
+	decrypted = rc4decrypt(rc, encrypted, stext);
+	printbin(encrypted, stext);
+	printf("->%s", decrypted);
+
+	rc4uninit(rc);
+	
+	return 0;
 }
